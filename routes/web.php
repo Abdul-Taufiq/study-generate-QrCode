@@ -23,22 +23,22 @@ Route::get('/clear-cache', function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 })->middleware('permissions');
 
 // SimpleQrcode with ID
 Route::resource('qrcode', QrcodeController::class);
 Route::any('/generate/{id}', [QrcodeController::class, 'generate']);
-Route::get('/generate-qrcode-with-logo', [QrCodeController::class, 'generateQrCodeWithLogo'])->name('generate.qrcode.logo');
+Route::get('/generate-qrcode-with-logo', [QrCodeController::class, 'generateQrCodeWithLogo'])->name('generate-logo');
 
 // SimpleQRcode vcard
-Route::get('/generate-contact-qrcode', [QrCodeController::class, 'generateContactQrCode'])->name('generate.contact.qrcode');
+Route::get('/generate-contact-qrcode', [QrCodeController::class, 'generateContactQrCode'])->name('generate-vcard');
 
 // with endroid qrcode
-Route::get('/generate-qrcode-with-custom-style', [QRCodeEndroidController::class, 'generateQrCodeWithCustomStyle'])->name('generate.qrcode.customstyle');
+Route::get('/generate-qrcode-with-custom-style', [QRCodeEndroidController::class, 'generateQrCodeWithCustomStyle'])->name('generate-endroid');
 
 
 
-// PDF to TEXT (Spatie)
+// PDF to TEXT (Spatie) / smalot pdfparser
 Route::get('/uploadp', [PDFTextController::class, 'showUploadForm'])->name('upload.form');
 Route::post('/upload', [PDFTextController::class, 'handleUpload'])->name('upload.handle');

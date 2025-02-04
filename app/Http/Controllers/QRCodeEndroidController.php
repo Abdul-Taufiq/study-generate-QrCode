@@ -56,7 +56,7 @@ class QRCodeEndroidController extends Controller
         $vCard .= "END:VCARD";
 
         // Path ke logo di direktori public
-        $filepath = public_path('images/logonew.png');
+        $filepath = public_path('images/Logo.png');
 
         // Menghasilkan QR code dengan Endroid QrCode
         $result = Builder::create()
@@ -64,7 +64,7 @@ class QRCodeEndroidController extends Controller
             ->writerOptions([])
             ->data($vCard)
             ->encoding(new Encoding('UTF-8'))
-            ->errorCorrectionLevel(ErrorCorrectionLevel::Low)
+            ->errorCorrectionLevel(ErrorCorrectionLevel::Medium)
             ->size(512)
             ->margin(2)
             ->roundBlockSizeMode(RoundBlockSizeMode::Margin)

@@ -46,18 +46,19 @@ class QrcodeController extends Controller
         // URL yang akan disimpan dalam QR code
         $url = 'https://bprkusumasumbing.com';
         // Path ke logo di direktori public
-        $logoPath = public_path('images/logonew.png');
+        $logoPath = public_path('images/logo-rounded.png');
+
 
         // Membuat QR code dengan logo di tengahnya
-        $qrcode = QrCodes::format('png')
-            ->merge($logoPath, 0.5, true) // Path ke logo, ukuran dan transparansi
+        $qrCode = QrCodes::format('png')
+            ->merge($logoPath, 0.4, true) // Path ke logo, ukuran dan transparansi
             ->size(300)
             ->errorCorrection('H')
             ->generate($url);
 
         // Menyimpan QR code ke file atau mengirim langsung ke view
-        $output_file = 'qrcode_with_logo.png';
-        Storage::disk('local')->put($output_file, $qrcode);
+        $output_file = 'hasil/' . now()->format('dmY') . '-qrcode_with_logo.png';
+        File::put($output_file, $qrCode);
 
         return view('qrcodes.index2', compact('output_file'));
     }
@@ -101,14 +102,13 @@ class QrcodeController extends Controller
         $vCard .= "END:VCARD";
 
         // Generate QR code
-        $filepath = public_path('images/logo-rounded.png', style('border-radius: 50%'));
+        $filepath = public_path('images/logo-rounded.png');
         $qrCode = QrCodes::size(512)
-            ->style('dot') // style menjadi titik
-            ->eye('circle') // menambahkan pojok kotak dan bulat
-            // ->merge($filepath, 0.3, true)
-            ->merge($filepath, 0.5, true)
+            ->style('dot') // style menjadi titik, = dot, square, rounded
+            ->eye('circle') // menambahkan pojok kotak dan bulat, = square dan circle
+            ->merge($filepath, .3, true) // menggabungkan logo
             ->color(0, 102, 204) // Warna biru (sesuaikan dengan gambar yang diunggah)
-            ->color(0, 0, 0) // Warna hitam
+            // ->color(0, 0, 0) // Warna hitam
             ->margin(2)
             ->errorCorrection('M') //L = low, M = medium, Q = Quartile, H = high
             ->format('png')

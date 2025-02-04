@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html>
+@extends('layout');
 
-<head>
-    <title>Upload PDF</title>
-</head>
 
-<body>
-    <form action="{{ route('upload.handle') }}" method="post" enctype="multipart/form-data">
-        @csrf
-        <label for="file">Upload PDF:</label>
-        <input type="file" name="file" id="file">
-        <button type="submit">Upload</button>
-    </form>
-</body>
+@section('content')
+    <div class="container">
 
-</html>
+        <h1 class="mb-4">Cek Data dari PDF</h1>
+        <form action="{{ route('upload.handle') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <label for="file">Upload PDF:</label>
+            <input type="file" name="file" id="file" accept="application/pdf">
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+@endsection

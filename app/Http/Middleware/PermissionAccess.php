@@ -15,7 +15,8 @@ class PermissionAccess
             # code...
             return $next($request);
         } else {
-            abort(207, 'Tidak ada akses');
+            // abort(207, 'Tidak ada akses');
+            abort(403, 'Unauthorized action.');
         }
     }
 }
